@@ -1,0 +1,12 @@
+<!-- The second value will be selected initially -->
+
+<div class="grid-container">
+    <h1 class="mat-h1">Selecciona el dia a actualizar</h1>
+    <mat-form-field >
+      <input matInput [matDatepicker]="picker" placeholder="Seleccionar una fecha" >
+      <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+      <mat-datepicker #picker (selectedChanged)="updateDate($event)"></mat-datepicker>
+    </mat-form-field>
+
+    <app-forms [selectedDay]="selected" ></app-forms>
+</div>
