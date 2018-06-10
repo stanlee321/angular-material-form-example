@@ -5,8 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FormsComponent } from './forms/forms.component';
-import { SideBarComponent } from './side-bar/side-bar.component';
-import { MainPanelComponent } from './main-panel/main-panel.component';
 import { FooterComponent } from './footer/footer.component';
 
 // Add Services
@@ -26,20 +24,40 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MAT_DATE_LOCALE} from '@angular/material';
 import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatSidenavModule, MatIconModule, MatListModule, MatGridListModule, MatCardModule, MatMenuModule} from '@angular/material';
 import {MatStepperModule} from '@angular/material/stepper';
+import { GalleryFormComponent } from './gallery-form/gallery-form.component';
+import { CenasUpdateComponent } from './cenas-update/cenas-update.component';
 
+// Router links
+
+import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+
+const appRoutes: Routes = [
+  { path: 'gallery', component: GalleryFormComponent },
+  { path: 'cenas',  component: CenasUpdateComponent },
+  { path: 'semana',  component: SemanalComponent},
+  { path: 'home', component: HomeComponent},
+  { path: '**', component: HomeComponent },
+  { path: '', component: HomeComponent}
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FormsComponent,
-    SideBarComponent,
-    MainPanelComponent,
     FooterComponent,
     FormsComponent,
     SemanalComponent,
+    GalleryFormComponent,
+    CenasUpdateComponent,
+    HomeComponent,
   ],
   imports: [
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: false } // <-- debugging purposes only
+    ),
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,

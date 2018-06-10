@@ -1,285 +1,292 @@
 <!-- partial -->
-<div *ngIf="day">
-  <h1 class="mat-h1">{{day}}</h1>
-  <mat-horizontal-stepper [linear]="isLinear" #stepper>
-    <mat-step [stepControl]="firstFormGroup" >
-      <div *ngIf="sopasUploaded == false; else quickTemplate" >
-        <!-- Start Soups Column-->
-        <mat-card class="card">
-            <mat-card class="card">
-                <h2 class="card-title"><strong>SOPAS</strong></h2>
-                <p class="card-description">
-                  Llenar con los <strong>SOPAS</strong> del {{day}}
-                </p>
-            </mat-card>
-            <div class="card-body">
-              <ng-template matStepLabel>Sopas</ng-template>
-              <div *ngFor="let sopa of sopas; let idx = index" [attr.data-index]="idx">
-                <mat-card >
-                  <!-- Form starts here-->
-                  <form novalidate  [formGroup]="sopa">
-                      <mat-card-header>
-                          <mat-card-title>
-                            <h4 class="card-title"> Sopa Numero: {{idx + 1}} </h4>
-                          </mat-card-title>
-                      </mat-card-header>
-                      <mat-card-content>
-                        <div class="container">
-                          <input style="display: none" 
-                          type="file" class="form-control file-upload-info"
-                          (change)="onFileChange($event, idx, 1)"
-                          placeholder="Upload Image"
-                          #fileInput>
-                          <img mat-card-image src={{sopa.value.image_url}} (click)="fileInput.click()" style = "width: 50%;height: auto;" class="center">  
-                          <!-- PROGRESS-->
-                        </div>
-                        <!-- Title-->
-                        <div class="example-container">
-                          <mat-form-field>
-                            <input matInput type="text" class="form-control" placeholder="Nombre del plato" formControlName="title" required>
-                          </mat-form-field>
-                          <!-- Description -->
-                          <mat-form-field>
-                            <input matInput type="text" class="form-control" placeholder="Su Descripcion" formControlName="subtitle" required>
-                          </mat-form-field>
-                          <!-- Price -->
-                          <mat-form-field>
-                            <input matInput type="text" class="form-control" placeholder="Precio en Bolivianos" formControlName="price" required>
-                            <span matPrefix>Bs.&nbsp;</span>
-                            <span matSuffix>.00</span>
-                          </mat-form-field>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
-                        </div>
-                      </mat-card-content>
-                  </form>
+<mat-card class="demo-panel">
+  <mat-card-title>
+    Panel para actualizar el Menú del Bot
+  </mat-card-title>
+  <mat-card-content>
+      <div *ngIf="day">
+        <h1 class="mat-h1">{{day}}</h1>
+        <mat-horizontal-stepper [linear]="isLinear" #stepper>
+          <mat-step [stepControl]="firstFormGroup" >
+            <div *ngIf="sopasUploaded == false; else quickTemplate" >
+              <!-- Start Soups Column-->
+              <mat-card class="card">
+                  <mat-card class="card">
+                      <h2 class="card-title"><strong>SOPAS</strong></h2>
+                      <p class="card-description">
+                        Llenar con los <strong>SOPAS</strong> del {{day}}
+                      </p>
+                  </mat-card>
+                  <div class="card-body">
+                    <ng-template matStepLabel>Sopas</ng-template>
+                    <div *ngFor="let sopa of sopas; let idx = index" [attr.data-index]="idx">
+                      <mat-card >
+                        <!-- Form starts here-->
+                        <form novalidate  [formGroup]="sopa">
+                            <mat-card-header>
+                                <mat-card-title>
+                                  <h4 class="card-title"> Sopa Numero: {{idx + 1}} </h4>
+                                </mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content>
+                              <div class="container">
+                                <input style="display: none" 
+                                type="file" class="form-control file-upload-info"
+                                (change)="onFileChange($event, idx, 1)"
+                                placeholder="Upload Image"
+                                #fileInput>
+                                <img mat-card-image src={{sopa.value.image_url}} (click)="fileInput.click()" style = "width: 50%;height: auto;" class="center">  
+                                <!-- PROGRESS-->
+                              </div>
+                              <!-- Title-->
+                              <div class="example-container">
+                                <mat-form-field>
+                                  <input matInput type="text" class="form-control" placeholder="Nombre del plato" formControlName="title" required>
+                                </mat-form-field>
+                                <!-- Description -->
+                                <mat-form-field>
+                                  <input matInput type="text" class="form-control" placeholder="Su Descripcion" formControlName="subtitle" required>
+                                </mat-form-field>
+                                <!-- Price -->
+                                <mat-form-field>
+                                  <input matInput type="text" class="form-control" placeholder="Precio en Bolivianos" formControlName="price" required>
+                                  <span matPrefix>Bs.&nbsp;</span>
+                                  <span matSuffix>.00</span>
+                                </mat-form-field>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                              </div>
+                            </mat-card-content>
+                        </form>
+                      </mat-card>
+                      <br>
+                      <!-- Form ends here-->
+                    </div>
+                  </div>
+                  <hr>
+                  <mat-grid-list cols="2" rowHeight="2:1">
+                      <br>
+                      <div style="width:100%; background-color:#40c945;text-align: center"><span *ngIf='uploadProgress > 25'>Cargando Imagen: {{uploadProgress}}%</span></div>
+                      <mat-grid-tile>
+                          <button mat-raised-button color="primary" type="submit" (click)="onAddItem()">  Añadir + Sopas</button>
+                      </mat-grid-tile>
+                      <mat-grid-tile>
+                          <button mat-raised-button color="warn" type="submit"  (click)="onDeleteItem()">  Quitar Ultimo </button>
+                      </mat-grid-tile>
+                  </mat-grid-list>
+                  <hr>
+                  <div >
+                    <button mat-raised-button type="submit" style="background-color: rgb(60, 199, 60); color: #fff; margin:auto;display:block"  (click)="onSubmit()">Actualizar SOPAS Bot</button>
+                  </div>
                 </mat-card>
-                <br>
-                <!-- Form ends here-->
+              <!-- END SOUPS-->
+            </div>
+            <ng-template #quickTemplate>
+              <mat-card class="example-card">
+                  <mat-card-header>
+                    <div mat-card-avatar class="example-header-image"></div>
+                    <mat-card-title>Doge Bot</mat-card-title>
+                    <mat-card-subtitle>Backend Service</mat-card-subtitle>
+                  </mat-card-header>
+                  <img mat-card-image src="../assets/soup_doge.jpg" alt="Photo of a Shiba Inu">
+                  <mat-card-content>
+                    <p>
+                    El menu de <strong>SOPAS</strong> para el dia <strong>{{day}}</strong> fue actualizado correctamente :)
+                    </p>
+                  </mat-card-content>
+                </mat-card>
+                <mat-card-actions>
+                    <button  mat-raised-button color="accent" style="margin:auto;display:block" (click)="updateSomething('sopa')">Deshacer algo</button>
+                </mat-card-actions>
+            </ng-template>
+          </mat-step>
+
+
+          <!-- Start Segundos-->
+          <mat-step [stepControl]="secondFormGroup">
+            <div *ngIf="segundosUploaded == false; else quickTemplate2" >
+
+              <mat-card class="card">
+                  <mat-card class="card">
+                      <h2 class="card-title"><strong>SEGUNDOS</strong></h2>
+                      <p class="card-description">
+                        Llenar con los <strong>SEGUNDOS</strong> del {{day}}
+                      </p>
+                  </mat-card>
+                  <div class="card-body">
+                    <ng-template matStepLabel>Segundos</ng-template>
+                    <div *ngFor="let segnds of segundos; let idx = index" [attr.data-index]="idx">
+                      <mat-card >
+                        <!-- Form starts here-->
+                        <form novalidate  [formGroup]="segnds">
+                            <mat-card-header>
+                                <mat-card-title>
+                                  <h4 class="card-title"> Segundo Numero: {{idx + 1}} </h4>
+                                </mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content>
+                              <div class="container">
+                                <input style="display: none" 
+                                type="file" class="form-control file-upload-info"
+                                (change)="onFileChange($event, idx, 2)"
+                                placeholder="Upload Image"
+                                #fileInput>
+                                <img mat-card-image src={{segnds.value.image_url}} (click)="fileInput.click()" style = "width: 50%;height: auto;" class="center"> 
+                                <!-- PROGRESS-->
+                              </div>
+                              <!-- Title-->
+                              <div class="example-container">
+                                <mat-form-field>
+                                  <input matInput type="text" class="form-control" placeholder="Nombre del plato" formControlName="title" required>
+                                </mat-form-field>
+                                <!-- Description -->
+                                <mat-form-field>
+                                  <input matInput type="text" class="form-control" placeholder="Su Descripcion" formControlName="subtitle" required>
+                                </mat-form-field>
+                                <!-- Price -->
+                                <mat-form-field>
+                                  <input matInput type="text" class="form-control" placeholder="Precio en Bolivianos" formControlName="price" required>
+                                  <span matPrefix>Bs.&nbsp;</span>
+                                  <span matSuffix>.00</span>
+                                </mat-form-field>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                              </div>
+                            </mat-card-content>
+                        </form>
+                      </mat-card>
+                      <br>
+                      <!-- Form ends here-->
+                    </div>
+                  </div>
+                  <hr>
+                  <mat-grid-list cols="2" rowHeight="2:1">
+                      <br>
+                      <div style="width:100%; background-color:#40c945;text-align: center"><span *ngIf='uploadProgress > 25'>Cargando Imagen: {{uploadProgress}}%</span></div>
+                      <mat-grid-tile>
+                          <button mat-raised-button color="primary" type="submit" (click)="onAddSegundo()">  Añadir + Segundos</button>
+                      </mat-grid-tile>
+                      <mat-grid-tile>
+                          <button mat-raised-button color="warn" type="submit"  (click)="onDeleteSegundo()">  Quitar ultimo </button>
+                      </mat-grid-tile>
+                  </mat-grid-list>
+                  <hr>
+                  <div >
+                    <button mat-raised-button type="submit" style="background-color: rgb(60, 199, 60); color: #fff; margin:auto;display:block"  (click)="onSubmitSegundos()">Actualizar Bot con <strong>
+                        Segundos</strong></button>
+                  </div>
+              </mat-card>
+              <!-- END Segundos-->
               </div>
+              <ng-template #quickTemplate2>
+                <mat-card class="example-card">
+                    <mat-card-header>
+                      <div mat-card-avatar class="example-header-image"></div>
+                      <mat-card-title>Doge Bot</mat-card-title>
+                      <mat-card-subtitle>Backend Service</mat-card-subtitle>
+                    </mat-card-header>
+                    <img mat-card-image src="../assets/cat.gif" alt="Photo of a Shiba Inu">
+                    <mat-card-content>
+                      <p>
+                      El menu de <strong>SEGUNDOS</strong> para el dia <strong>{{day}}</strong> fue actualizado correctamente :)
+                      </p>
+                    </mat-card-content>
+                </mat-card>
+                <mat-card-actions>
+                    <button  mat-raised-button color="accent" style="margin:auto;display:block" (click)="updateSomething('segundo')">Deshacer algo</button>
+                </mat-card-actions>
+              </ng-template>
+          </mat-step>
+
+          <mat-step [stepControl]="thirthFormGroup">
+            <div *ngIf="refrescosUploaded == false; else quickTemplate3" >
+              <!-- Start Refrescos-->
+              <mat-card class="card">
+                  <mat-card class="card">
+                      <h2 class="card-title"><strong>REFRESCOS</strong></h2>
+                      <p class="card-description">
+                        Llenar con los <strong>REFRESCOS</strong> del dia {{day}}
+                      </p>
+                  </mat-card>
+                  <div class="card-body">
+                    <ng-template matStepLabel>Refrescos</ng-template>
+                    <div *ngFor="let refre of refrescos; let idx = index" [attr.data-index]="idx">
+                      <mat-card >
+                        <!-- Form starts here-->
+                        <form novalidate  [formGroup]="refre">
+                            <mat-card-header>
+                                <mat-card-title>
+                                  <h4 class="card-title"> Refresco Numero: {{idx + 1}} </h4>
+                                </mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content>
+                              <div class="container">
+                                <input style="display: none" 
+                                type="file" class="form-control file-upload-info"
+                                (change)="onFileChange($event, idx, 3)"
+                                placeholder="Upload Image"
+                                #fileInput>
+                                <img mat-card-image src={{refre.value.image_url}} (click)="fileInput.click()" style = "width: 50%;height: auto;" class="center"> 
+                                <!-- PROGRESS-->
+                              </div>
+                              <!-- Title-->
+                              <div class="example-container">
+                                <mat-form-field>
+                                  <input matInput type="text" class="form-control" placeholder="Nombre del Refresco" formControlName="title" required>
+                                </mat-form-field>
+                                <!-- Description -->
+                                <mat-form-field>
+                                  <input matInput type="text" class="form-control" placeholder="Su Descripcion" formControlName="subtitle" required>
+                                </mat-form-field>
+                                <!-- Price -->
+                                <mat-form-field>
+                                  <input matInput type="text " class="form-control" placeholder="Precio en Bolivianos" formControlName="price" required>
+                                  <span matPrefix>Bs.&nbsp;</span>
+                                  <span matSuffix>.00</span>
+                                </mat-form-field>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                              </div>
+                            </mat-card-content>
+                        </form>
+                      </mat-card>
+                      <br>
+                      <!-- Form ends here-->
+                    </div>
+                  </div>
+                  <hr>
+                  <mat-grid-list cols="2" rowHeight="2:1">
+                      <br>
+                      <div style="width:100%; background-color:#40c945;text-align: center"><span *ngIf='uploadProgress > 25'>Cargando Imagen: {{uploadProgress}}%</span></div>
+                      <mat-grid-tile>
+                          <button mat-raised-button color="primary" type="submit" (click)="onAddRefresco()">  Añadir + Refresco</button>
+                      </mat-grid-tile>
+                      <mat-grid-tile>
+                          <button mat-raised-button color="warn" type="submit"  (click)="onDeleteRefresco()">  Quitar ultimo </button>
+                      </mat-grid-tile>
+                  </mat-grid-list>
+                  <hr>
+                  <div >
+                    <button mat-raised-button type="submit" style="background-color: rgb(60, 199, 60); color: #fff; margin:auto;display:block"  (click)="onSubmitRefrescos()">Actualizar Bot con <strong>
+                        Refrescos</strong></button>
+                  </div>
+              </mat-card>
+              <!-- END Refrescos-->
             </div>
-            <hr>
-            <mat-grid-list cols="2" rowHeight="2:1">
-                <br>
-                <div style="width:100%; background-color:#40c945;text-align: center"><span *ngIf='uploadProgress > 25'>Cargando Imagen: {{uploadProgress}}%</span></div>
-                <mat-grid-tile>
-                    <button mat-raised-button color="primary" type="submit" (click)="onAddItem()">  Añadir + Sopas</button>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    <button mat-raised-button color="warn" type="submit"  (click)="onDeleteItem()">  Quitar Ultimo </button>
-                </mat-grid-tile>
-            </mat-grid-list>
-            <hr>
-            <div >
-              <button mat-raised-button type="submit" style="background-color: rgb(60, 199, 60); color: #fff; margin:auto;display:block"  (click)="onSubmit()">Actualizar SOPAS Bot</button>
-            </div>
-          </mat-card>
-        <!-- END SOUPS-->
+            <ng-template #quickTemplate3>
+              <mat-card class="example-card">
+                  <mat-card-header>
+                    <div mat-card-avatar class="example-header-image"></div>
+                    <mat-card-title>Doge Bot</mat-card-title>
+                    <mat-card-subtitle>Backend Service</mat-card-subtitle>
+                  </mat-card-header>
+                  <img mat-card-image src="../assets/dogedrinkg.gif" alt="Photo of a Shiba Inu">
+                  <mat-card-content>
+                    <p>
+                    El menu de <strong>REFRESCOS</strong> para el dia <strong>{{day}}</strong> fue actualizado correctamente :)
+                    </p>
+                  </mat-card-content>
+              </mat-card>
+              <mat-card-actions>
+                  <button  mat-raised-button color="accent" style="margin:auto;display:block" (click)="updateSomething('refresco')">Deshacer algo</button>
+              </mat-card-actions>
+            </ng-template>
+          </mat-step>
+        </mat-horizontal-stepper>
       </div>
-      <ng-template #quickTemplate>
-        <mat-card class="example-card">
-            <mat-card-header>
-              <div mat-card-avatar class="example-header-image"></div>
-              <mat-card-title>Doge Bot</mat-card-title>
-              <mat-card-subtitle>Backend Service</mat-card-subtitle>
-            </mat-card-header>
-            <img mat-card-image src="../assets/soup_doge.jpg" alt="Photo of a Shiba Inu">
-            <mat-card-content>
-              <p>
-               El menu de <strong>SOPAS</strong> para el dia <strong>{{day}}</strong> fue actualizado correctamente :)
-              </p>
-            </mat-card-content>
-          </mat-card>
-          <mat-card-actions>
-              <button  mat-raised-button color="accent" style="margin:auto;display:block" (click)="updateSomething('sopa')">Deshacer algo</button>
-          </mat-card-actions>
-      </ng-template>
-    </mat-step>
-
-
-    <!-- Start Segundos-->
-    <mat-step [stepControl]="secondFormGroup">
-      <div *ngIf="segundosUploaded == false; else quickTemplate2" >
-
-        <mat-card class="card">
-            <mat-card class="card">
-                <h2 class="card-title"><strong>SEGUNDOS</strong></h2>
-                <p class="card-description">
-                  Llenar con los <strong>SEGUNDOS</strong> del {{day}}
-                </p>
-            </mat-card>
-            <div class="card-body">
-              <ng-template matStepLabel>Segundos</ng-template>
-              <div *ngFor="let segnds of segundos; let idx = index" [attr.data-index]="idx">
-                <mat-card >
-                  <!-- Form starts here-->
-                  <form novalidate  [formGroup]="segnds">
-                      <mat-card-header>
-                          <mat-card-title>
-                            <h4 class="card-title"> Segundo Numero: {{idx + 1}} </h4>
-                          </mat-card-title>
-                      </mat-card-header>
-                      <mat-card-content>
-                        <div class="container">
-                          <input style="display: none" 
-                          type="file" class="form-control file-upload-info"
-                          (change)="onFileChange($event, idx, 2)"
-                          placeholder="Upload Image"
-                          #fileInput>
-                          <img mat-card-image src={{segnds.value.image_url}} (click)="fileInput.click()" style = "width: 50%;height: auto;" class="center"> 
-                          <!-- PROGRESS-->
-                        </div>
-                        <!-- Title-->
-                        <div class="example-container">
-                          <mat-form-field>
-                            <input matInput type="text" class="form-control" placeholder="Nombre del plato" formControlName="title" required>
-                          </mat-form-field>
-                          <!-- Description -->
-                          <mat-form-field>
-                            <input matInput type="text" class="form-control" placeholder="Su Descripcion" formControlName="subtitle" required>
-                          </mat-form-field>
-                          <!-- Price -->
-                          <mat-form-field>
-                            <input matInput type="text" class="form-control" placeholder="Precio en Bolivianos" formControlName="price" required>
-                            <span matPrefix>Bs.&nbsp;</span>
-                            <span matSuffix>.00</span>
-                          </mat-form-field>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
-                        </div>
-                      </mat-card-content>
-                  </form>
-                </mat-card>
-                <br>
-                <!-- Form ends here-->
-              </div>
-            </div>
-            <hr>
-            <mat-grid-list cols="2" rowHeight="2:1">
-                <br>
-                <div style="width:100%; background-color:#40c945;text-align: center"><span *ngIf='uploadProgress > 25'>Cargando Imagen: {{uploadProgress}}%</span></div>
-                <mat-grid-tile>
-                    <button mat-raised-button color="primary" type="submit" (click)="onAddSegundo()">  Añadir + Segundos</button>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    <button mat-raised-button color="warn" type="submit"  (click)="onDeleteSegundo()">  Quitar ultimo </button>
-                </mat-grid-tile>
-            </mat-grid-list>
-            <hr>
-            <div >
-              <button mat-raised-button type="submit" style="background-color: rgb(60, 199, 60); color: #fff; margin:auto;display:block"  (click)="onSubmitSegundos()">Actualizar Bot con <strong>
-                  Segundos</strong></button>
-            </div>
-        </mat-card>
-        <!-- END Segundos-->
-        </div>
-        <ng-template #quickTemplate2>
-          <mat-card class="example-card">
-              <mat-card-header>
-                <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title>Doge Bot</mat-card-title>
-                <mat-card-subtitle>Backend Service</mat-card-subtitle>
-              </mat-card-header>
-              <img mat-card-image src="../assets/cat.gif" alt="Photo of a Shiba Inu">
-              <mat-card-content>
-                <p>
-                 El menu de <strong>SEGUNDOS</strong> para el dia <strong>{{day}}</strong> fue actualizado correctamente :)
-                </p>
-              </mat-card-content>
-          </mat-card>
-          <mat-card-actions>
-              <button  mat-raised-button color="accent" style="margin:auto;display:block" (click)="updateSomething('segundo')">Deshacer algo</button>
-          </mat-card-actions>
-        </ng-template>
-    </mat-step>
-
-    <mat-step [stepControl]="thirthFormGroup">
-      <div *ngIf="refrescosUploaded == false; else quickTemplate3" >
-        <!-- Start Refrescos-->
-        <mat-card class="card">
-            <mat-card class="card">
-                <h2 class="card-title"><strong>REFRESCOS</strong></h2>
-                <p class="card-description">
-                  Llenar con los <strong>REFRESCOS</strong> del dia {{day}}
-                </p>
-            </mat-card>
-            <div class="card-body">
-              <ng-template matStepLabel>Refrescos</ng-template>
-              <div *ngFor="let refre of refrescos; let idx = index" [attr.data-index]="idx">
-                <mat-card >
-                  <!-- Form starts here-->
-                  <form novalidate  [formGroup]="refre">
-                      <mat-card-header>
-                          <mat-card-title>
-                            <h4 class="card-title"> Refresco Numero: {{idx + 1}} </h4>
-                          </mat-card-title>
-                      </mat-card-header>
-                      <mat-card-content>
-                        <div class="container">
-                          <input style="display: none" 
-                          type="file" class="form-control file-upload-info"
-                          (change)="onFileChange($event, idx, 3)"
-                          placeholder="Upload Image"
-                          #fileInput>
-                          <img mat-card-image src={{refre.value.image_url}} (click)="fileInput.click()" style = "width: 50%;height: auto;" class="center"> 
-                          <!-- PROGRESS-->
-                        </div>
-                        <!-- Title-->
-                        <div class="example-container">
-                          <mat-form-field>
-                            <input matInput type="text" class="form-control" placeholder="Nombre del Refresco" formControlName="title" required>
-                          </mat-form-field>
-                          <!-- Description -->
-                          <mat-form-field>
-                            <input matInput type="text" class="form-control" placeholder="Su Descripcion" formControlName="subtitle" required>
-                          </mat-form-field>
-                          <!-- Price -->
-                          <mat-form-field>
-                            <input matInput type="text " class="form-control" placeholder="Precio en Bolivianos" formControlName="price" required>
-                            <span matPrefix>Bs.&nbsp;</span>
-                            <span matSuffix>.00</span>
-                          </mat-form-field>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
-                        </div>
-                      </mat-card-content>
-                  </form>
-                </mat-card>
-                <br>
-                <!-- Form ends here-->
-              </div>
-            </div>
-            <hr>
-            <mat-grid-list cols="2" rowHeight="2:1">
-                <br>
-                <div style="width:100%; background-color:#40c945;text-align: center"><span *ngIf='uploadProgress > 25'>Cargando Imagen: {{uploadProgress}}%</span></div>
-                <mat-grid-tile>
-                    <button mat-raised-button color="primary" type="submit" (click)="onAddRefresco()">  Añadir + Refresco</button>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    <button mat-raised-button color="warn" type="submit"  (click)="onDeleteRefresco()">  Quitar ultimo </button>
-                </mat-grid-tile>
-            </mat-grid-list>
-            <hr>
-            <div >
-              <button mat-raised-button type="submit" style="background-color: rgb(60, 199, 60); color: #fff; margin:auto;display:block"  (click)="onSubmitRefrescos()">Actualizar Bot con <strong>
-                  Refrescos</strong></button>
-            </div>
-        </mat-card>
-        <!-- END Refrescos-->
-      </div>
-      <ng-template #quickTemplate3>
-        <mat-card class="example-card">
-            <mat-card-header>
-              <div mat-card-avatar class="example-header-image"></div>
-              <mat-card-title>Doge Bot</mat-card-title>
-              <mat-card-subtitle>Backend Service</mat-card-subtitle>
-            </mat-card-header>
-            <img mat-card-image src="../assets/dogedrinkg.gif" alt="Photo of a Shiba Inu">
-            <mat-card-content>
-              <p>
-               El menu de <strong>REFRESCOS</strong> para el dia <strong>{{day}}</strong> fue actualizado correctamente :)
-              </p>
-            </mat-card-content>
-        </mat-card>
-        <mat-card-actions>
-            <button  mat-raised-button color="accent" style="margin:auto;display:block" (click)="updateSomething('refresco')">Deshacer algo</button>
-        </mat-card-actions>
-      </ng-template>
-    </mat-step>
-  </mat-horizontal-stepper>
-</div>
+  </mat-card-content>
+</mat-card>

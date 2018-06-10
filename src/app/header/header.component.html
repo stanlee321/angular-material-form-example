@@ -1,10 +1,21 @@
 <mat-sidenav-container class="sidenav-container" mat-scroll-shrink  class="mat-elevation-z8">
   <mat-sidenav-content  >
+    <mat-sidenav #sidenav class="example-sidenav">
+        Sidenav content goes here!
+    </mat-sidenav>
     <mat-toolbar color="primary"  >
       <span>Administrador</span>
     </mat-toolbar>
   </mat-sidenav-content>
 </mat-sidenav-container>
 <mat-toolbar color="primary" >
-    <h4 class="mat-h4">Actualizar Bot</h4>
+    <div class="button-row">
+      <button mat-raised-button style = "color: black !important;" (click)="goTo('cenas')">Cenas</button>
+      <button mat-raised-button style = "color: black !important;" (click)="goTo('semana')">Menu Semanal</button>
+      <button mat-raised-button disabled style = "color: black !important;"  (click)="goTo('gallery')">Galeria</button>
+      <button  mat-raised-button color="accent" (click)="goTo('home')">Estadisticas</button>
+
+    </div>
+
+    
 </mat-toolbar>

@@ -1,0 +1,97 @@
+<mat-card class="demo-panel">
+  <mat-card-title>
+    Panel para actualizar el Menú del Bot
+  </mat-card-title>
+  <mat-card-content>
+      <h1 class="mat-h1">Actualizar Cenas</h1>
+      <div *ngIf="cenasUploaded == false; else quickTemplate" >
+        <!-- Start Soups Column-->
+        <mat-card class="card">
+            <mat-card class="card">
+                <h2 class="card-title"><strong>CENAS</strong></h2>
+                <p class="card-description">
+                  Llenar con las <strong>CENAS</strong> correspondientes.
+                </p>
+            </mat-card>
+            <div class="card-body">
+              <ng-template matStepLabel>CENAS</ng-template>
+              <div *ngFor="let cena of cenas; let idx = index" [attr.data-index]="idx">
+                <mat-card >
+                  <!-- Form starts here-->
+                  <form novalidate  [formGroup]="cena">
+                      <mat-card-header>
+                          <mat-card-title>
+                            <h4 class="card-title"> Cena Numero: {{idx + 1}} </h4>
+                          </mat-card-title>
+                      </mat-card-header>
+                      <mat-card-content>
+                        <div class="container">
+                          <input style="display: none" 
+                          type="file" class="form-control file-upload-info"
+                          (change)="onFileChange($event, idx, 4)"
+                          placeholder="Upload Image"
+                          #fileInput>
+                          <img mat-card-image src={{cena.value.image_url}} (click)="fileInput.click()" style = "width: 50%;height: auto;" class="center">  
+                          <!-- PROGRESS-->
+                        </div>
+                        <!-- Title-->
+                        <div class="example-container">
+                          <mat-form-field>
+                            <input matInput type="text" class="form-control" placeholder="Nombre del plato" formControlName="title" required>
+                          </mat-form-field>
+                          <!-- Description -->
+                          <mat-form-field>
+                            <input matInput type="text" class="form-control" placeholder="Su Descripcion" formControlName="subtitle" required>
+                          </mat-form-field>
+                          <!-- Price -->
+                          <mat-form-field>
+                            <input matInput type="text" class="form-control" placeholder="Precio en Bolivianos" formControlName="price" required>
+                            <span matPrefix>Bs.&nbsp;</span>
+                            <span matSuffix>.00</span>
+                          </mat-form-field>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                        </div>
+                      </mat-card-content>
+                  </form>
+                </mat-card>
+                <br>
+                <!-- Form ends here-->
+              </div>
+            </div>
+            <hr>
+            <mat-grid-list cols="2" rowHeight="2:1">
+                <br>
+                <div style="width:100%; background-color:#40c945;text-align: center"><span *ngIf='uploadProgress > 25'>Cargando Imagen: {{uploadProgress}}%</span></div>
+                <mat-grid-tile>
+                    <button mat-raised-button color="primary" type="submit" (click)="onAddItem()">  Añadir + Cenas</button>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <button mat-raised-button color="warn" type="submit"  (click)="onDeleteItem()">  Quitar Ultimo </button>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <hr>
+            <div >
+              <button mat-raised-button type="submit" style="background-color: rgb(60, 199, 60); color: #fff; margin:auto;display:block"  (click)="onSubmit()">Actualizar CENAS</button>
+            </div>
+        </mat-card>
+        <!-- END SOUPS-->
+      </div>
+      <ng-template #quickTemplate>
+        <mat-card class="example-card">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>Doge Bot</mat-card-title>
+              <mat-card-subtitle>Backend Service</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image src="../assets/soup_doge.jpg" alt="Photo of a Shiba Inu">
+            <mat-card-content>
+              <p>
+              El menu de <strong>CENAS</strong> fue actualizado correctamente :)
+              </p>
+            </mat-card-content>
+          </mat-card>
+          <mat-card-actions>
+              <button  mat-raised-button color="warn" style="margin:auto;display:block" (click)="updateSomething('cenas')">Deshacer algo</button>
+          </mat-card-actions>
+      </ng-template>
+  </mat-card-content>
+</mat-card>

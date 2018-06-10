@@ -28,16 +28,8 @@ export class SemanalComponent implements OnInit {
     this.selected = false
   }
 
-
-   // Grav selection from form
-  updateSelectedCountry(event){
-    this.selected = event
-    console.log(this.selected)
-  }
-
   updateDate(event){
     //console.log(event)
     this.selected = event.toDateString()
-    console.log(this.selected)
   }
 }

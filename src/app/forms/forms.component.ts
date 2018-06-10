@@ -43,7 +43,7 @@ export class FormsComponent implements OnInit {
               private backservice: FormServiceService) {}
   
 
-
+  // For slider
   isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -54,6 +54,7 @@ export class FormsComponent implements OnInit {
     this.segundo = this.createFormBuilder();
     this.refresco = this.createFormBuilder();
 
+    // For slider
     this.firstFormGroup = this.fb.group({
       firstCtrl: ['', Validators.required]
     });
@@ -102,7 +103,7 @@ export class FormsComponent implements OnInit {
     });
   }
 
-  // Sopas/Segundos TODO SUBMIT TO API
+  // Sopas/Segundos  SUBMIT TO API
   onSubmit(){
     console.log('Updating outputs...again')
 

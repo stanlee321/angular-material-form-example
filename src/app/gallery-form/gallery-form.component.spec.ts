@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MainPanelComponent } from './main-panel.component';
+import { GalleryFormComponent } from './gallery-form.component';
 
-describe('MainPanelComponent', () => {
-  let component: MainPanelComponent;
-  let fixture: ComponentFixture<MainPanelComponent>;
+describe('GalleryFormComponent', () => {
+  let component: GalleryFormComponent;
+  let fixture: ComponentFixture<GalleryFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MainPanelComponent ]
+      declarations: [ GalleryFormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MainPanelComponent);
+    fixture = TestBed.createComponent(GalleryFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
